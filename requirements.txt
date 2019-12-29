@@ -1,0 +1,10 @@
+tensorflow
+python-forecastio
+opencv-python==4.1.0.25
+awscli
+boto3
+numpy
+google-api-python-client
+httplib2
+oauth2client
+python-dotenv

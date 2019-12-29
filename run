@@ -1,0 +1,32 @@
+#!/bin/bash
+. .env
+
+# my_date=${1} if not provided, go in bash
+
+# Name of the container (to build & run)
+NAME="gphoto-object-extraction"
+
+# If no date, go in console
+if [ "${1}" == "" ]; then
+  echo -e '\n/!\ No date provided, we jump in the console (exit to go out) /!\ \n'
+  RUN="/bin/bash"
+else
+  RUN="python app.py"
+fi
+
+# Build the image
+docker build -t ${NAME} .
+
+# Test the image and the cv2 import
+docker run -it --rm ${NAME} python -c "import cv2; print(cv2.__version__)"
+
+# Run the app
+docker run -it --rm \
+  -e my_date=${1} \
+  --env-file=`pwd`/.env \
+  -v `pwd`/google-photo.json:/src/google-photo.json \
+  -v `pwd`/google-photo-token.json:/src/google-photo-token.json \
+  ${NAME} ${RUN}
+
+# Done & Bye
+exit 0
