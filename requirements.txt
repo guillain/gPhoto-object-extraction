@@ -1,6 +1,6 @@
 tensorflow
 python-forecastio
-opencv-python==4.2.0.32
+opencv-python==4.8.1.78
 awscli
 boto3
 numpy
